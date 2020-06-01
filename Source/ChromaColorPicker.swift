@@ -119,7 +119,9 @@ public class ChromaColorPicker: UIControl, ChromaControlStylable {
         }
         
         // upd: move first handle to wheel touch position
-        if let handle = handles.first, colorWheelView.pointIsInColorWheel(location) {
+        if let handle = handles.first, let pixelColor = colorWheelView.pixelColor(at: location), colorWheelView.pointIsInColorWheel(location) {
+            let previousBrightness = handle.color.brightness
+            handle.color = pixelColor.withBrightness(previousBrightness)
             positionHandle(handle, forColorLocation: location)
             
             colorWheelView.bringSubviewToFront(handle)
@@ -132,6 +134,7 @@ public class ChromaColorPicker: UIControl, ChromaControlStylable {
             
             currentHandle = handle
             
+            informDelegateOfColorChange(on: handle)
             sendActions(for: UIControl.Event.chromaWheelTap)
             
             return true
