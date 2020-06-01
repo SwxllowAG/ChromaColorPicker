@@ -131,6 +131,8 @@ public class ChromaColorPicker: UIControl, ChromaControlStylable {
             }
             
             currentHandle = handle
+            
+            return true
         }
         
         return false
