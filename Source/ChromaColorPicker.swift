@@ -117,6 +117,22 @@ public class ChromaColorPicker: UIControl, ChromaControlStylable {
                 return true
             }
         }
+        
+        // upd: move first handle to wheel touch position
+        if let handle = handles.first {
+            positionHandle(handle, forColorLocation: location)
+            
+            colorWheelView.bringSubviewToFront(handle)
+            animateHandleScale(handle, shouldGrow: true)
+            
+            if let slider = brightnessSlider {
+                slider.trackColor = handle.color.withBrightness(1)
+                slider.currentValue = slider.value(brightness: handle.color.brightness)
+            }
+            
+            currentHandle = handle
+        }
+        
         return false
     }
     
@@ -155,7 +171,8 @@ public class ChromaColorPicker: UIControl, ChromaControlStylable {
         if let handle = currentHandle {
             animateHandleScale(handle, shouldGrow: false)
         }
-        sendActions(for: .touchUpInside)
+//        upd: removed repteating action
+//        sendActions(for: .touchUpInside)
     }
     
     public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
