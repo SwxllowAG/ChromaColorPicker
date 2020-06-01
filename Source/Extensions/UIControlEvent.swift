@@ -8,6 +8,7 @@
 
 import UIKit
 
-extension UIControl.Event {
-    static let chromaWheelTap: UIControl.Event = UIControl.Event(rawValue: 0b0010 << 24)
+public extension UIControl.Event {
+    // Action called at touch on wheel, but not handle
+    static var chromaWheelTap: UIControl.Event = UIControl.Event(rawValue: 0b0010 << 24)
 }

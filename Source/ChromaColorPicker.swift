@@ -131,7 +131,7 @@ public class ChromaColorPicker: UIControl, ChromaControlStylable {
             }
             
             currentHandle = handle
-            // to perform final update of color in 1lens
+            
             sendActions(for: UIControl.Event.chromaWheelTap)
             
             return true
